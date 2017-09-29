@@ -75,7 +75,7 @@ First, wrap the component with `withReducer`:
 
 ```javascript
 // in child component
-import { withReducer } from 'react-redux-dynamic-reducer
+import { withReducer } from 'react-redux-dynamic-reducer'
 
 export default withReducer(myReducer, 'defaultKey')(MyComponent)
 ```
