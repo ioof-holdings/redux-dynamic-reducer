@@ -23,7 +23,7 @@ This library pairs well with [redux-subspace](https://github.com/ioof-holdings/r
 ## Packages
 
 * [`redux-dynamic-reducer`](/packages/redux-dynamic-reducer): The core package for `redux-dynamic-reducer`
-* [`react-redux-dynamic-reducer`](/packages/redux-dynamic-reducer): React bindings for `redux-dynamic-reducer`
+* [`react-redux-dynamic-reducer`](/packages/react-redux-dynamic-reducer): React bindings for `redux-dynamic-reducer`
 
 ## How to use
 
