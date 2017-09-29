@@ -27,7 +27,7 @@ Please refer to the [redux-dynamic-reducer](/packages/redux-dynamic-reducer) for
 The `withReducer` higher-order component (HOC) can be used to bundle a reducer into a component that will automatically be attached into the store when mounted. This method will also mount the component within a [subspace](https://github.com/ioof-holdings/redux-subspace) for easy access to it's reducer.  Please refer to the [redux-subspace documentation](https://github.com/ioof-holdings/redux-subspace/docs) for configuring the subspace to work with any middleware, enhancers or other extensions you are using.
 
 ```javascript
-import { withReducer } from 'react-redux-dynamic-reducer
+import { withReducer } from 'react-redux-dynamic-reducer'
 
 export default withReducer(myReducer, 'defaultKey')(MyComponent)
 ```

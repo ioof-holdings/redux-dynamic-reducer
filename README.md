@@ -154,4 +154,4 @@ Examples can be found [here](/examples).
 
 * Each dynamic reducer needs a unique key
   * If the same key is used, the last component to use it wins
-* Currently, reducers are only ever attached at the root of the store. Nesting is a complex problem we are working on. Components can nested as deep as required, but the store state tree will not match the nesting structure. Consequently, the subspace keys must be unique across the board.
+* Currently, reducers are only ever attached at the root of the store. Nesting is a complex problem we are working on. Components can be nested as deep as required, but the store state tree will not match the nesting structure. Consequently, the subspace keys must be unique across the board.
