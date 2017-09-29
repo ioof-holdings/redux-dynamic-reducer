@@ -35,14 +35,14 @@ const DecoratedStatelessComponentWithExtraState = withReducer(reducer, 'standard
 const DecoratedStandardComponentWithExtraAndRootState = withReducer(reducer, 'standard')(MyStandardComponent).withExtraState((state: {}, rootState: {}) => ({ test: "value" }))
 const DecoratedStatelessComponentWithExtraAndRootState = withReducer(reducer, 'standard')(MyStatelessComponent).withExtraState((state: {}, rootState: {}) => ({ test: "value" }))
 
-const DecoratedStandardComponentWithDefaultOptions = withReducer(reducer, 'standard', { namespace: false, mapExtraState: (state: {}, rootState: {}) => ({ test: "value" }) })(MyStandardComponent)
-const DecoratedStatelessComponentWithDefaultOptions = withReducer(reducer, 'stateless', { namespace: false, mapExtraState: (state: {}, rootState: {}) => ({ test: "value" }) })(MyStatelessComponent)
+const DecoratedStandardComponentWithDefaultOptions = withReducer(reducer, 'standard', { namespaceActions: false, mapExtraState: (state: {}, rootState: {}) => ({ test: "value" }) })(MyStandardComponent)
+const DecoratedStatelessComponentWithDefaultOptions = withReducer(reducer, 'stateless', { namespaceActions: false, mapExtraState: (state: {}, rootState: {}) => ({ test: "value" }) })(MyStatelessComponent)
 
 const DecoratedStandardComponentWithEmptyOptions = withReducer(reducer, 'standard', {})(MyStandardComponent)
 const DecoratedStatelessComponentWithEmptyOptions = withReducer(reducer, 'stateless', {})(MyStatelessComponent)
 
-const DecoratedStandardComponentWithInstanceOptions = withReducer(reducer, 'standard')(MyStandardComponent).withOptions({ namespace: false })
-const DecoratedStatelessComponentWithInstanceOptions = withReducer(reducer, 'stateless')(MyStatelessComponent).withOptions({ namespace: false })
+const DecoratedStandardComponentWithInstanceOptions = withReducer(reducer, 'standard')(MyStandardComponent).withOptions({ namespaceActions: false })
+const DecoratedStatelessComponentWithInstanceOptions = withReducer(reducer, 'stateless')(MyStatelessComponent).withOptions({ namespaceActions: false })
 
 const TestInJSX = () => (
     <div>
