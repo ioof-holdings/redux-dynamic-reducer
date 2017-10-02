@@ -211,7 +211,7 @@ describe('withReducer Tests', () => {
 
             const nestedReducer = (state = 'nested reducer state') => state
 
-            const mockStore = configureStore()({ default2: { value: "expected" }, default1: { value: "wrong" } })
+            const mockStore = configureStore()({ default1: { value: "wrong", default2: { value: "expected" } } })
             mockStore.attachReducers = sinon.spy()
 
             let DecoratedComponent1 = withReducer(nestedReducer, 'default2')(connect(state => ({value: state.value}))(({ value }) => <p>{value}</p>))
@@ -225,7 +225,7 @@ describe('withReducer Tests', () => {
 
             expect(testComponent.text()).to.equal('expected')
             expect(mockStore.attachReducers.args[0][0].default1()).to.equal('reducer state')
-            expect(mockStore.attachReducers.args[1][0].default2()).to.equal('nested reducer state')
+            expect(mockStore.attachReducers.args[1][0]['default1/default2']()).to.equal('nested reducer state')
         })
 
         it('should raise error if store cannot have reducers attached', () => {
@@ -466,7 +466,7 @@ describe('withReducer Tests', () => {
 
             const nestedReducer = (state = 'nested reducer state') => state
 
-            const mockStore = configureStore()({ instance2: { value: "expected" }, instance1: { value: "wrong" } })
+            const mockStore = configureStore()({ instance1: { value: "wrong", instance2: { value: "expected" } } })
             mockStore.attachReducers = sinon.spy()
 
             let DecoratedComponent1 = withReducer(nestedReducer, 'default2')(connect(state => ({value: state.value}))(({ value }) => <p>{value}</p>)).createInstance('instance2')
@@ -480,7 +480,7 @@ describe('withReducer Tests', () => {
 
             expect(testComponent.text()).to.equal('expected')
             expect(mockStore.attachReducers.args[0][0].instance1()).to.equal('reducer state')
-            expect(mockStore.attachReducers.args[1][0].instance2()).to.equal('nested reducer state')
+            expect(mockStore.attachReducers.args[1][0]['instance1/instance2']()).to.equal('nested reducer state')
         })
 
         it('should raise error if store cannot have reducers attached', () => {

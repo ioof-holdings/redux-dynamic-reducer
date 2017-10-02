@@ -19,6 +19,9 @@
     "url": "https://github.com/ioof-holdings/redux-dynamic-reducer.git"
   },
   "dependencies": {
+    "lodash.isplainobject": "^4.0.6",
+    "lodash.mergewith": "^4.6.0",
+    "lodash.set": "^4.3.2",
     "redux-concatenate-reducers": "^1.0.0"
   },
   "peerDependencies": {

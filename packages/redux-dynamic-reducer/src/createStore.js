@@ -6,9 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { createStore as baseCreateStore, combineReducers } from 'redux'
+import { createStore as baseCreateStore } from 'redux'
 import concatenateReducers from 'redux-concatenate-reducers'
 import filteredReducer from './filteredReducer'
+import createDynamicReducer from './createDynamicReducer'
+import flattenReducers from './flattenReducers'
 
 const DEFAULT_REDUCER = (state) => state
 
@@ -23,14 +25,14 @@ const createStore = (reducer, ...rest) => {
         }
 
         if (Object.keys(dynamicReducers).length !== 0) {
-            reducers.push(filteredReducer(combineReducers(dynamicReducers)))
+            reducers.push(createDynamicReducer(dynamicReducers))
         }
 
         return Object.keys(reducers).length > 0 ? concatenateReducers(reducers) : DEFAULT_REDUCER
     }
 
     const attachReducers = (reducers) => {
-        dynamicReducers = {...dynamicReducers, ...reducers}
+        dynamicReducers = { ...dynamicReducers, ...flattenReducers(reducers) }
         store.replaceReducer(createReducer())
     }
 

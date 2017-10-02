@@ -12,6 +12,7 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 import wrapDisplayName from 'recompose/wrapDisplayName'
 import { namespaced } from 'redux-subspace'
 import { subspaced } from 'react-redux-subspace'
+import isPlainObject from 'lodash.isplainobject'
 
 const withReducer = (
     bundledReducer, 
@@ -33,7 +34,13 @@ const withReducer = (
         reducer = namespaced(namespace)(bundledReducer)
     }
 
-    const mapState = (state, rootState) => ({ ...mapExtraState(state, rootState), ...rootState[identifier] })
+    const mapState = (state, rootState) => {
+        const componentState = state[identifier]
+        const extraState = mapExtraState(state, rootState)
+        return isPlainObject(componentState) && isPlainObject(extraState) 
+            ? { ...extraState, ...componentState } 
+            : componentState
+    }
 
     const subspaceEnhancer = subspaced(mapState, namespace)
 
@@ -41,15 +48,27 @@ const withReducer = (
         const Component = subspaceEnhancer(WrappedComponent)
 
         class ComponentWithReducer extends React.PureComponent {
+
+            constructor(props, context) {
+                super(props, context)
+
+                const storeNamespace = this.context.store.namespace 
+                this.state = {
+                    identifier: storeNamespace ? `${storeNamespace}/${identifier}` : identifier,
+                    namespacer: namespaced(this.context.store.namespace)
+                }
+            }
+
             componentWillMount() {
-                let attachReducersCheck = typeof this.context.store.attachReducers === 'function'
+                const attachReducersCheck = typeof this.context.store.attachReducers === 'function'
 
                 if (process.env.NODE_ENV !== 'production') {
                     console.assert(attachReducersCheck, `'store.attachReducers' function is missing: Unable to attach reducer '${identifier}' into the store.`)
                 }
                 
                 if (attachReducersCheck) {
-                    this.context.store.attachReducers({ [identifier]: reducer })
+                    const { identifier, namespacer } = this.state
+                    this.context.store.attachReducers({ [identifier]: namespacer(reducer) })
                 }
             }
 
@@ -60,7 +79,7 @@ const withReducer = (
 
         hoistNonReactStatics(ComponentWithReducer, Component)
         
-        ComponentWithReducer.displayName = wrapDisplayName(Component, `ComponentWithReducer(${identifier})`)
+        ComponentWithReducer.displayName = wrapDisplayName(WrappedComponent, `ComponentWithReducer(${identifier})`)
 
         ComponentWithReducer.contextTypes = {
             store: PropTypes.object
