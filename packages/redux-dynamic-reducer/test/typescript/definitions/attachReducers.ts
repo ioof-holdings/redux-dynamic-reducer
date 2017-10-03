@@ -19,4 +19,21 @@ const testReducer: Reducer<TestState> = (state: TestState = { value: 0 }, action
 
 const store = createStore(combineReducers<any>({ testReducer1: testReducer }))
 
-store.attachReducers({ testestReducer2: testReducer })
+store.attachReducers({ testReducer2: testReducer })
+
+store.attachReducers({ testReducer3: testReducer, testReducer4: testReducer })
+
+store.attachReducers({ nested: { testReducer5: testReducer } })
+store.attachReducers({ 'nested.testReducer6': testReducer })
+store.attachReducers({ 'nested/testReducer7': testReducer })
+
+
+store.attachReducers({
+    testReducer8: testReducer,
+    nested: {
+        testReducer9: testReducer,
+        testReducer10: testReducer
+    },
+    'nested.testReducer11': testReducer,
+    'nested/testReducer12': testReducer
+})
