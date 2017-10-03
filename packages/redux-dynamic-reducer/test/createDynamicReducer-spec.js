@@ -40,9 +40,9 @@ describe('nestedCombineReducers tests', () => {
     
     it('should combine reducers in nested levels', () => {
         const reducer = createDynamicReducer({
-            'parent1/reducer1': reducer1,
+            'parent1.reducer1': reducer1,
             'parent1.reducer2': reducer2,
-            'parent2/parent3/reducer1': reducer1,
+            'parent2.parent3.reducer1': reducer1,
             'parent2.parent3.reducer2': reducer2,
         })
 
@@ -84,9 +84,9 @@ describe('nestedCombineReducers tests', () => {
 
         const reducer = createDynamicReducer({
             'parent1': combineReducers({ reducer1 }),
-            'parent1/reducer2': reducer2,
-            'parent2/parent3': combineReducers({ reducer1 }),
-            'parent2/parent3.reducer2': reducer2,
+            'parent1.reducer2': reducer2,
+            'parent2.parent3': combineReducers({ reducer1 }),
+            'parent2.parent3.reducer2': reducer2,
         })
 
         const initialState = {

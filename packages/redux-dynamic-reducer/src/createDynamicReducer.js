@@ -18,8 +18,7 @@ const createDynamicReducer = (reducers) => {
   }
 
   const expandedReducers = Object.keys(reducers).reduce((currentReducers, key) => {
-    const path = key.split(/[/.]/)
-    const reducerMap = set({}, path, reducers[key])
+    const reducerMap = set({}, key, reducers[key])
 
     return mergeWith(currentReducers, reducerMap, (originalReducer, newReducer) => {
       return originalReducer 

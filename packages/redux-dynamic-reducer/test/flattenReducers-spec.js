@@ -35,7 +35,7 @@ describe('flattenReducers Tests', () => {
         const flattenedReducers = flattenReducers(reducers)
 
         expect(flattenedReducers).to.deep.equal({
-            'parent1/parent2': reducer
+            'parent1.parent2': reducer
         })
     })
 
@@ -51,7 +51,7 @@ describe('flattenReducers Tests', () => {
         const flattenedReducers = flattenReducers(reducers)
 
         expect(flattenedReducers).to.deep.equal({
-            'parent1/parent2/parent3': reducer
+            'parent1.parent2.parent3': reducer
         })
     })
     
@@ -73,11 +73,23 @@ describe('flattenReducers Tests', () => {
         const flattenedReducers = flattenReducers(reducers)
 
         expect(flattenedReducers).to.deep.equal({
-            'parent1/parent2': reducer,
-            'parent1/parent3': reducer,
-            'parent3/parent4': reducer,
-            'parent3/parent5/parent6': reducer,
+            'parent1.parent2': reducer,
+            'parent1.parent3': reducer,
+            'parent3.parent4': reducer,
+            'parent3.parent5.parent6': reducer,
             'parent7': reducer
+        })
+    })
+    
+    it('should normalize nested path seperator', () => {
+        const reducers = {
+            'parent1/parent2': reducer
+        }
+
+        const flattenedReducers = flattenReducers(reducers)
+
+        expect(flattenedReducers).to.deep.equal({
+            'parent1.parent2': reducer
         })
     })
 })
