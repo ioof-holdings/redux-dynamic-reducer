@@ -37,7 +37,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected</p>')
+            expect(testComponent.text()).to.equal('expected')
         })
 
         it('should wrap stateless component', () => {
@@ -54,7 +54,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected</p>')
+            expect(testComponent.text()).to.equal('expected')
         })
 
         it('should wrap redux connected component', () => {
@@ -72,7 +72,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected</p>')
+            expect(testComponent.text()).to.equal('expected')
         })
 
         it('should namespace component as default', () => {
@@ -169,7 +169,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected - other</p>')
+            expect(testComponent.text()).to.equal('expected - other')
         })
 
         it('should map extra state from options component', () => {
@@ -187,7 +187,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected - other</p>')
+            expect(testComponent.text()).to.equal('expected - other')
         })
 
         it('should override options for component', () => {
@@ -204,7 +204,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected</p>')
+            expect(testComponent.text()).to.equal('expected')
         })
 
         it('should wrap nested components', () => {
@@ -223,7 +223,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected</p>')
+            expect(testComponent.text()).to.equal('expected')
             expect(mockStore.attachReducers.args[0][0].default1()).to.equal('reducer state')
             expect(mockStore.attachReducers.args[1][0].default2()).to.equal('nested reducer state')
         })
@@ -260,7 +260,7 @@ describe('withReducer Tests', () => {
                     </Provider>
                 )
 
-                expect(testComponent.html()).to.equal('<p>expected</p>')
+                expect(testComponent.text()).to.equal('expected')
             } finally {
                 process.env.NODE_ENV = nodeEnv
             }
@@ -288,7 +288,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected</p>')
+            expect(testComponent.text()).to.equal('expected')
         })
 
         it('should wrap stateless component', () => {
@@ -305,7 +305,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected</p>')
+            expect(testComponent.text()).to.equal('expected')
         })
 
         it('should wrap redux connected component', () => {
@@ -323,7 +323,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected</p>')
+            expect(testComponent.text()).to.equal('expected')
         })
 
         it('should namespace component as default', () => {
@@ -421,7 +421,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected - other</p>')
+            expect(testComponent.text()).to.equal('expected - other')
         })
 
         it('should map extra state from options component', () => {
@@ -440,7 +440,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected - other</p>')
+            expect(testComponent.text()).to.equal('expected - other')
         })
 
         it('should override options for component', () => {
@@ -459,7 +459,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected</p>')
+            expect(testComponent.text()).to.equal('expected')
         })
 
         it('should wrap nested components', () => {
@@ -478,7 +478,7 @@ describe('withReducer Tests', () => {
                 </Provider>
             )
 
-            expect(testComponent.html()).to.equal('<p>expected</p>')
+            expect(testComponent.text()).to.equal('expected')
             expect(mockStore.attachReducers.args[0][0].instance1()).to.equal('reducer state')
             expect(mockStore.attachReducers.args[1][0].instance2()).to.equal('nested reducer state')
         })
@@ -515,7 +515,7 @@ describe('withReducer Tests', () => {
                     </Provider>
                 )
 
-                expect(testComponent.html()).to.equal('<p>expected</p>')
+                expect(testComponent.text()).to.equal('expected')
             } finally {
                 process.env.NODE_ENV = nodeEnv
             }

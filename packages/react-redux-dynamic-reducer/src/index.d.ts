@@ -11,7 +11,7 @@ import { Reducer } from 'redux';
 import { MapState } from 'redux-subspace';
 
 interface Options {
-  namespace?: Boolean;
+  namespaceActions?: Boolean;
   mapExtraState?: MapState<any, any, any>;
 }
 
