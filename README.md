@@ -69,6 +69,28 @@ Multiple reducers can be attached as well:
 store.attachReducers({ dynamicReducer1, dynamicReducer2 })
 ```
 
+Reducers can also be added to nested locations in the store:
+
+```javascript
+store.attachReducers({
+    some: {
+        path: {
+            to: {
+                dynamicReducer
+            }
+        }
+    }
+} )
+```
+
+```javascript
+store.attachReducers({ 'some.path.to': { dynamicReducer } } } })
+```
+
+```javascript
+store.attachReducers({ 'some/path/to': { dynamicReducer } } } })
+```
+
 #### When using React and redux-subspace
 
 First, wrap the component with `withReducer`:
@@ -153,5 +175,5 @@ Examples can be found [here](/examples).
 ## Limitations
 
 * Each dynamic reducer needs a unique key
-  * If the same key is used, the last component to use it wins
-* Currently, reducers are only ever attached at the root of the store. Nesting is a complex problem we are working on. Components can be nested as deep as required, but the store state tree will not match the nesting structure. Consequently, the subspace keys must be unique across the board.
+  * If the same key is used in a subsequent attachment, the original reducer will be replaced
+* Nested reducers cannot be attached to nodes of the state tree owned by a static reducer
