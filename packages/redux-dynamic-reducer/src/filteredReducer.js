@@ -6,11 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const FILTER_INIT = { type: '@@FILTER/INIT' }
+import isPlainObject from 'lodash.isplainobject'
 
-const isObject = (obj) => {
-  return obj === Object(obj) && !Array.isArray(obj)
-}
+const FILTER_INIT = { type: '@@FILTER/INIT' }
 
 const filteredReducer = (reducer) => {
     let knownKeys = Object.keys(reducer(undefined, FILTER_INIT))
@@ -31,7 +29,7 @@ const filteredReducer = (reducer) => {
             return state;
         }
 
-        if (isObject(newState)) {
+        if (isPlainObject(newState)) {
             knownKeys = Object.keys(newState)
             return {
                 ...state,

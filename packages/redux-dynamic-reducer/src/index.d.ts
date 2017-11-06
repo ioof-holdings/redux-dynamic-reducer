@@ -19,7 +19,12 @@ export interface StoreCreator {
 export const createStore: StoreCreator;
 
 declare module "redux" {
+
+  export interface NestableReducersMapObject {
+    [key: string]: (NestableReducersMapObject | Reducer<any>);
+  }
+
   export interface Store<S> {
-    attachReducers(reducers: ReducersMapObject): void;
+    attachReducers(reducers: NestableReducersMapObject): void;
   }
 }

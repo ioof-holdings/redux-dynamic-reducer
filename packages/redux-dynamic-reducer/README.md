@@ -67,6 +67,28 @@ Multiple reducers can be attached as well:
 store.attachReducers({ dynamicReducer1, dynamicReducer2 })
 ```
 
+Reducers can also be added to nested locations in the store:
+
+```javascript
+store.attachReducers({
+    some: {
+        path: {
+            to: {
+                dynamicReducer
+            }
+        }
+    }
+} )
+```
+
+```javascript
+store.attachReducers({ 'some.path.to': { dynamicReducer } } } })
+```
+
+```javascript
+store.attachReducers({ 'some/path/to': { dynamicReducer } } } })
+```
+
 ## Examples
 
 Examples can be found [here](/examples#redux-dynamic-reducer).
@@ -74,5 +96,5 @@ Examples can be found [here](/examples#redux-dynamic-reducer).
 ## Limitations
 
 * Each dynamic reducer needs a unique key
-  * If the same key is used in a subsequent attachion, the original reducer will be replaced
-* Reducers can only be attached to the top level of the store
+  * If the same key is used in a subsequent attachment, the original reducer will be replaced
+* Nested reducers cannot be attached to nodes of the state tree owned by a static reducer
