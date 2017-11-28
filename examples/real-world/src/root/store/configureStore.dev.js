@@ -1,5 +1,5 @@
-import { compose } from 'redux'
-import { createStore } from 'redux-dynamic-reducer'
+import { createStore, compose } from 'redux'
+import dynamicReducer from 'redux-dynamic-reducer'
 import { applyMiddleware, applyToRoot } from 'redux-subspace'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
@@ -19,6 +19,7 @@ const configureStore = preloadedState => {
         wormhole((state) => state.configuration, 'configuration'), 
         applyToRoot(createLogger())
       ),
+      dynamicReducer(),
       DevTools.instrument()
     )
   )

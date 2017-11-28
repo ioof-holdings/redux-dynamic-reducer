@@ -10,35 +10,35 @@ import isPlainObject from 'lodash.isplainobject'
 
 const FILTER_INIT = { type: '@@FILTER/INIT' }
 
-const filteredReducer = (reducer) => {
-    let knownKeys = Object.keys(reducer(undefined, FILTER_INIT))
+const filteredReducer = reducer => {
+  let knownKeys = Object.keys(reducer(undefined, FILTER_INIT))
 
-    return (state, action) => {
-        let filteredState = state
+  return (state, action) => {
+    let filteredState = state
 
-        if (knownKeys.length && state !== undefined) {
-            filteredState = knownKeys.reduce((current, key) => {
-                current[key] = state[key];
-                return current
-            }, {})
-        }
+    if (knownKeys.length && state !== undefined) {
+      filteredState = knownKeys.reduce((current, key) => {
+        current[key] = state[key]
+        return current
+      }, {})
+    }
 
-        let newState = reducer(filteredState, action)
+    let newState = reducer(filteredState, action)
 
-        if (newState === filteredState) {
-            return state;
-        }
+    if (newState === filteredState) {
+      return state
+    }
 
-        if (isPlainObject(newState)) {
-            knownKeys = Object.keys(newState)
-            return {
-                ...state,
-                ...newState
-            }
-        } else {
-            return newState
-        }
-    };
+    if (isPlainObject(newState)) {
+      knownKeys = Object.keys(newState)
+      return {
+        ...state,
+        ...newState
+      }
+    } else {
+      return newState
+    }
+  }
 }
 
 export default filteredReducer

@@ -11,13 +11,13 @@ This library provides [React bindings](https://facebook.github.io/react/) for [r
 ### 1. Create the store
 
 ```javascript
-import { combineReducers } from 'redux'
-import { createStore } from 'redux-dynamic-reducer'
+import { createStore, combineReducers } from 'redux'
+import dynamicReducer from 'redux-dynamic-reducer'
 
 ...
 
 const reducer = combineReducers({ staticReducer1, staticReducer2 })
-const store = createStore(reducer)
+const store = createStore(reducer, dynamicReducer())
 ```
 
 Please refer to the [redux-dynamic-reducer](/packages/redux-dynamic-reducer) for more details on creating the store.

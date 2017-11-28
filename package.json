@@ -22,5 +22,10 @@
     "eslint": "^4.10.0",
     "istanbul": "^0.4.5",
     "lerna": "^2.5.1"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true
   }
 }

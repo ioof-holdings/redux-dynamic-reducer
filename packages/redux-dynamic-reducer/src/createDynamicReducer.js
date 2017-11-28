@@ -12,16 +12,16 @@ import { combineReducers } from 'redux'
 import concatenateReducers from 'redux-concatenate-reducers'
 import filteredReducer from './filteredReducer'
 
-const createDynamicReducer = (reducers) => {
+const createDynamicReducer = reducers => {
   if (typeof reducers === 'function') {
-      return filteredReducer(reducers)
+    return filteredReducer(reducers)
   }
 
   const expandedReducers = Object.keys(reducers).reduce((currentReducers, key) => {
     const reducerMap = set({}, key, reducers[key])
 
     return mergeWith(currentReducers, reducerMap, (originalReducer, newReducer) => {
-      return originalReducer 
+      return originalReducer
         ? concatenateReducers([createDynamicReducer(originalReducer), createDynamicReducer(newReducer)])
         : newReducer
     })
@@ -30,7 +30,7 @@ const createDynamicReducer = (reducers) => {
   const flattenedReducers = Object.keys(expandedReducers).reduce((currentReducers, key) => {
     return { ...currentReducers, [key]: createDynamicReducer(expandedReducers[key]) }
   }, {})
-  
+
   return filteredReducer(combineReducers(flattenedReducers))
 }
 

@@ -10,11 +10,11 @@ import { combineReducers, Reducer, Action } from 'redux'
 import { createStore } from '../../../src'
 
 class TestState {
-    value: number
+  value: number
 }
 
 const testReducer: Reducer<TestState> = (state: TestState = { value: 0 }, action: Action) => {
-    return state
+  return state
 }
 
 const store = createStore(combineReducers<any>({ testReducer1: testReducer }))
@@ -27,13 +27,12 @@ store.attachReducers({ nested: { testReducer5: testReducer } })
 store.attachReducers({ 'nested.testReducer6': testReducer })
 store.attachReducers({ 'nested/testReducer7': testReducer })
 
-
 store.attachReducers({
-    testReducer8: testReducer,
-    nested: {
-        testReducer9: testReducer,
-        testReducer10: testReducer
-    },
-    'nested.testReducer11': testReducer,
-    'nested/testReducer12': testReducer
+  testReducer8: testReducer,
+  nested: {
+    testReducer9: testReducer,
+    testReducer10: testReducer
+  },
+  'nested.testReducer11': testReducer,
+  'nested/testReducer12': testReducer
 })

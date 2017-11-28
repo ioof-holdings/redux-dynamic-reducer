@@ -1,4 +1,5 @@
-import { createStore } from 'redux-dynamic-reducer'
+import { createStore, compose } from "redux"
+import dynamicReducer from 'redux-dynamic-reducer'
 import { applyMiddleware } from 'redux-subspace'
 import thunk from 'redux-thunk'
 import api from '../../common/middleware/api'
@@ -8,10 +9,13 @@ import rootReducer from '../reducers'
 const configureStore = preloadedState => createStore(
   rootReducer,
   preloadedState,
-  applyMiddleware(
-    thunk, 
-    api, 
-    wormhole((state) => state.configuration, 'configuration')
+  compose(
+    applyMiddleware(
+      thunk, 
+      api, 
+      wormhole((state) => state.configuration, 'configuration')
+    ),
+    dynamicReducer()
   )
 )
 
