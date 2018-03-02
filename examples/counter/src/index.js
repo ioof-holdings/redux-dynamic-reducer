@@ -1,8 +1,9 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import { createStore } from "redux-dynamic-reducer"
+import { createStore } from "redux"
+import dynamicReducer from 'redux-dynamic-reducer'
 
-const store = createStore()
+const store = createStore(null, dynamicReducer())
 const rootEl = document.getElementById("root")
 
 const render = (Counter) => {

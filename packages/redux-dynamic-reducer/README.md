@@ -25,16 +25,16 @@ It also provides a useful utilities to package a component with a related reduce
 
 ### 1. Create the store
 
-The `createStore` function can be used to create store that can have reducer dynamically attached. It is a drop-in replacement for the [built-in Redux version](http://redux.js.org/docs/api/createStore.html):
+The store enhancer function can be used to with `createStore` so that reducers can be dynamically attached:
 
 ```javascript
-import { combineReducers } from 'redux'
-import { createStore } from 'redux-dynamic-reducer'
+import { createStore, combineReducers } from 'redux'
+import dynamicReducer from 'redux-dynamic-reducer'
 
 ...
 
 const reducer = combineReducers({ staticReducer1, staticReducer2 })
-const store = createStore(reducer)
+const store = createStore(reducer, dynamicReducer())
 ```
 
 #### Initial State and Middleware
@@ -42,15 +42,30 @@ const store = createStore(reducer)
 The `createStore` function also supports all of the optional parameters that the [built-in Redux `createStore` function](http://redux.js.org/docs/api/createStore.html) does:
 
 ```javascript
-const store = createStore(reducer, { initial: 'state' })
+import { createStore } from 'redux'
+import dynamicReducer from 'redux-dynamic-reducer'
+
+const store = createStore(reducer, { initial: 'state' }, dynamicReducer())
 ```
 
 ```javascript
-const store = createStore(reducer, applyMiddleware(middleware))
+import { createStore, compose } from 'redux'
+import dynamicReducer from 'redux-dynamic-reducer'
+
+const store = createStore(reducer, compose(
+  applyMiddleware(middleware),
+  dynamicReducer()
+))
 ```
 
 ```javascript
-const store = createStore(reducer, { initial: 'state' }, applyMiddleware(middleware))
+import { createStore, compose } from 'redux'
+import dynamicReducer from 'redux-dynamic-reducer'
+
+const store = createStore(reducer, { initial: 'state' }, compose(
+  applyMiddleware(middleware),
+  dynamicReducer()
+))
 ```
 
 ### 2. Add a dynamic reducer

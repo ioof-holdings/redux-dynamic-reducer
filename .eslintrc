@@ -19,7 +19,7 @@
   ],
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
-    "no-console": ["warn", { "allow": ["assert"] }],
+    "no-console": ["warn", { "allow": ["assert", "warn"] }],
     "react/prop-types": ["error", { "skipUndeclared": true }] 
   }
 }

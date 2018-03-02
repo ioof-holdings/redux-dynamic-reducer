@@ -6,15 +6,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { combineReducers, applyMiddleware } from 'redux'
-import createStore from '../src/createStore'
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
+import dynamicReducerEnhancer from '../src/dynamicReducerEnhancer'
 
-describe('createStore Tests', () => {
+describe('dynamicReducerEnhancer Tests', () => {
   const staticReducer1 = (state = 0) => state
   const staticReducer2 = (state = 'test') => state
 
   it('should create store with static reducers', () => {
-    const store = createStore(combineReducers({ staticReducer1, staticReducer2 }))
+    const store = createStore(combineReducers({ staticReducer1, staticReducer2 }), dynamicReducerEnhancer())
     const state = store.getState()
 
     expect(state.staticReducer1).to.equal(0)
@@ -22,14 +22,14 @@ describe('createStore Tests', () => {
   })
 
   it('should create store with no static reducers', () => {
-    const store = createStore()
+    const store = createStore(null, dynamicReducerEnhancer())
     const state = store.getState()
 
     expect(state).to.be.undefined
   })
 
   it('should create store with initial state', () => {
-    const store = createStore(combineReducers({ staticReducer1 }), { staticReducer1: 1 })
+    const store = createStore(combineReducers({ staticReducer1 }), { staticReducer1: 1 }, dynamicReducerEnhancer())
     const state = store.getState()
 
     expect(state.staticReducer1).to.equal(1)
@@ -42,7 +42,10 @@ describe('createStore Tests', () => {
       return next(action)
     }
 
-    const store = createStore(combineReducers({ staticReducer1 }), applyMiddleware(middleware))
+    const store = createStore(
+      combineReducers({ staticReducer1 }),
+      compose(applyMiddleware(middleware), dynamicReducerEnhancer())
+    )
 
     store.dispatch({ type: 'TEST' })
 
@@ -56,7 +59,11 @@ describe('createStore Tests', () => {
       return next(action)
     }
 
-    const store = createStore(combineReducers({ staticReducer1 }), { staticReducer1: 1 }, applyMiddleware(middleware))
+    const store = createStore(
+      combineReducers({ staticReducer1 }),
+      { staticReducer1: 1 },
+      compose(applyMiddleware(middleware), dynamicReducerEnhancer())
+    )
 
     store.dispatch({ type: 'TEST' })
     const state = store.getState()
@@ -72,7 +79,7 @@ describe('attachReducers Tests', () => {
   const dynamicReducer2 = (state = [0, 'test']) => state
 
   it('should attach dynamic reducer', () => {
-    const store = createStore(combineReducers({ staticReducer1 }))
+    const store = createStore(combineReducers({ staticReducer1 }), dynamicReducerEnhancer())
 
     store.attachReducers({ dynamicReducer1 })
 
@@ -84,7 +91,7 @@ describe('attachReducers Tests', () => {
   })
 
   it('should attach multiple dynamic reducers', () => {
-    const store = createStore(combineReducers({ staticReducer1 }))
+    const store = createStore(combineReducers({ staticReducer1 }), dynamicReducerEnhancer())
 
     store.attachReducers({ dynamicReducer1, dynamicReducer2 })
 
@@ -98,7 +105,7 @@ describe('attachReducers Tests', () => {
   })
 
   it('should attach multiple dynamic reducers at seperate times', () => {
-    const store = createStore(combineReducers({ staticReducer1 }))
+    const store = createStore(combineReducers({ staticReducer1 }), dynamicReducerEnhancer())
 
     store.attachReducers({ dynamicReducer1 })
     store.attachReducers({ dynamicReducer2 })

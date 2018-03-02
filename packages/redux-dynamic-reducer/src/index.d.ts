@@ -6,25 +6,29 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Reducer, Store, StoreEnhancer } from 'redux';
+import { GenericStoreEnhancer, Reducer, Store, StoreEnhancer } from 'redux'
+
+export default function(): GenericStoreEnhancer
 
 export interface StoreCreator {
-  <S>(): Store<S>;
-  <S>(reducer: Reducer<S>): Store<S>;
-  <S>(reducer: Reducer<S>, enhancer: StoreEnhancer<S>): Store<S>;
-  <S>(reducer: Reducer<S>, preloadedState: S): Store<S>;
-  <S>(reducer: Reducer<S>, preloadedState: S, enhancer: StoreEnhancer<S>): Store<S>;
+  <S>(): Store<S>
+  <S>(reducer: Reducer<S>): Store<S>
+  <S>(reducer: Reducer<S>, enhancer: StoreEnhancer<S>): Store<S>
+  <S>(reducer: Reducer<S>, preloadedState: S): Store<S>
+  <S>(reducer: Reducer<S>, preloadedState: S, enhancer: StoreEnhancer<S>): Store<S>
 }
 
-export const createStore: StoreCreator;
+/**
+ * @deprecated
+ */
+export const createStore: StoreCreator
 
-declare module "redux" {
-
+declare module 'redux' {
   export interface NestableReducersMapObject {
-    [key: string]: (NestableReducersMapObject | Reducer<any>);
+    [key: string]: NestableReducersMapObject | Reducer<any>
   }
 
   export interface Store<S> {
-    attachReducers(reducers: NestableReducersMapObject): void;
+    attachReducers(reducers: NestableReducersMapObject): void
   }
 }

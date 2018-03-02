@@ -29,28 +29,16 @@ This library pairs well with [redux-subspace](https://github.com/ioof-holdings/r
 
 ### 1. Create the store
 
-The `createStore` function replaces the [Redux `createStore` function](http://redux.js.org/docs/api/createStore.html). It adds the `attachReducers()` function to the store object. It also supports all the built in optional parameters:
+The store enhancer function adds the `attachReducers` function to the store object:
 
 ```javascript
-import { combineReducers } from 'redux'
-import { createStore } from 'redux-dynamic-reducer'
+import { createStore, combineReducers } from 'redux'
+import dynamicReducer from 'redux-dynamic-reducer'
 
 ...
 
 const reducer = combineReducers({ staticReducer1, staticReducer2 })
-const store = createStore(reducer)
-```
-
-```javascript
-const store = createStore(reducer, { initial: 'state' })
-```
-
-```javascript
-const store = createStore(reducer, applyMiddleware(middleware))
-```
-
-```javascript
-const store = createStore(reducer, { initial: 'state' }, applyMiddleware(middleware))
+const store = createStore(reducer, dynamicReducer())
 ```
 
 ### 2. Dynamically attach a reducer
