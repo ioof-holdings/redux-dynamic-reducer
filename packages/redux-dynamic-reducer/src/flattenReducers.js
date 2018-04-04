@@ -8,14 +8,16 @@
 
 const flattenReducers = (reducers, parentKey) => {
   if (typeof reducers === 'function') {
-    return { [parentKey.replace('/', '.')]: reducers }
+    return { [parentKey.replace(/\//g, '.')]: reducers }
   }
 
-  return Object.keys(reducers)
-    .reduce((reducerMap, key) => ({
+  return Object.keys(reducers).reduce(
+    (reducerMap, key) => ({
       ...reducerMap,
       ...flattenReducers(reducers[key], parentKey ? `${parentKey}.${key}` : key)
-    }), {})
+    }),
+    {}
+  )
 }
 
 export default flattenReducers
