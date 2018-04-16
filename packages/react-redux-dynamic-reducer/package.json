@@ -1,6 +1,6 @@
 {
   "name": "react-redux-dynamic-reducer",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "react-redux Provider extension for redux-subspace",
   "author": "Michael Peyper",
   "license": "BSD-3-Clause",
