@@ -6,32 +6,52 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import set from 'lodash.set'
-import mergeWith from 'lodash.mergewith'
 import { combineReducers } from 'redux'
 import concatenateReducers from 'redux-concatenate-reducers'
 import filteredReducer from './filteredReducer'
 
-const createDynamicReducer = (reducers) => {
-  if (typeof reducers === 'function') {
-      return filteredReducer(reducers)
+const expandReducers = reducers => {
+  const expandedReducers = { children: {} }
+
+  for (let key in reducers) {
+    let path = key.split('.')
+    let currentNode = expandedReducers
+
+    for (let element of path) {
+      if (!currentNode.children[element]) {
+        currentNode.children[element] = { children: {} }
+      }
+
+      currentNode = currentNode.children[element]
+    }
+    currentNode.reducer = reducers[key]
   }
 
-  const expandedReducers = Object.keys(reducers).reduce((currentReducers, key) => {
-    const reducerMap = set({}, key, reducers[key])
+  return expandedReducers
+}
 
-    return mergeWith(currentReducers, reducerMap, (originalReducer, newReducer) => {
-      return originalReducer 
-        ? concatenateReducers([createDynamicReducer(originalReducer), createDynamicReducer(newReducer)])
-        : newReducer
-    })
-  }, {})
+const collapseReducers = node => {
+  const { reducer, children } = node
 
-  const flattenedReducers = Object.keys(expandedReducers).reduce((currentReducers, key) => {
-    return { ...currentReducers, [key]: createDynamicReducer(expandedReducers[key]) }
-  }, {})
-  
-  return filteredReducer(combineReducers(flattenedReducers))
+  const childrenKeys = Object.keys(children)
+
+  if (!childrenKeys.length) {
+    return reducer
+  }
+
+  const reducersToCombine = childrenKeys.reduce(
+    (reducerMap, key) => ({ ...reducerMap, [key]: collapseReducers(children[key]) }),
+    {}
+  )
+
+  const childrenReducer = combineReducers(reducersToCombine)
+
+  return reducer ? concatenateReducers([filteredReducer(reducer), filteredReducer(childrenReducer)]) : childrenReducer
+}
+
+const createDynamicReducer = reducers => {
+  const expandedReducers = expandReducers(reducers)
+  return collapseReducers(expandedReducers)
 }
 
 export default createDynamicReducer
