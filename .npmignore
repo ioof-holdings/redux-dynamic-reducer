@@ -8,4 +8,4 @@ examples/
 coverage
 .vscode
 .idea
-.bablerc
+.babelrc
