@@ -1,5 +1,9 @@
 # redux-dynamic-reducer
 
+## Deprecated
+
+Our new redux library, [redux-dynostore](https://github.com/ioof-holdings/redux-dynostore) has all the features of this one and more, allowing for a lot more dynamic store features. If you experience any difficulty switching over to [redux-dynostore](https://github.com/ioof-holdings/redux-dynostore) then please let us know by raising an issue over there. This library will be subject to major bug fixes and security fixes only.
+
 [![npm version](https://img.shields.io/npm/v/redux-dynamic-reducer.svg?style=flat-square)](https://www.npmjs.com/package/redux-dynamic-reducer)
 [![npm downloads](https://img.shields.io/npm/dm/redux-dynamic-reducer.svg?style=flat-square)](https://www.npmjs.com/package/redux-dynamic-reducer)
 [![License: MIT](https://img.shields.io/npm/l/redux-dynamic-reducer.svg?style=flat-square)](/LICENSE.md)
